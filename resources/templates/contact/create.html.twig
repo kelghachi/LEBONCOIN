@@ -1,0 +1,107 @@
+{% extends 'base/base.html.twig' %}
+{% block stylesheet %}
+    {{ parent() }}
+    <link href="http://{{ host }}/LEBONCOIN/resources/assets/css/style.css" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <main role="main" class="container">
+        <h1 class="mt-5">{{ action }} contact</h1>
+        <form action="{{ formAction }}" method="post">
+            <input type="hidden" value="{{ id }}" name="id">
+            <div class="form-group">
+                <label for="firstName">FirstName</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" value="{{ contact.firstName }}"
+                       required/>
+            </div>
+            <div class="form-group">
+                <label for="lastName">LastName</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" value="{{ contact.lastName }}"
+                       required/>
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="text" class="form-control" id="email" name="email" value="{{ contact.email }}" required/>
+                <a href="#" id="validateEmail">Validate</a>
+                <div class="alert" id="emailValidationResult"></div>
+            </div>
+            {% if action == 'Add' %}
+                <a id="addAddresses" onclick="addAddresses()" class="btn btn-info">Add Addresses</a>
+                <div id="address"></div>
+            {% else %}
+                {% if addresses is not empty %}
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">#</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for address in addresses %}
+                            <tr>
+                                <th scope="row">{{ address.id }}</th>
+                                <td>{{ address.address }}</td>
+                                <td><a href="http://{{ host }}/LEBONCOIN/public/address/edit.php?id={{ address.id }}">Edit</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="alert alert-info">No address found for this contact</div>
+                {% endif %}
+            {% endif %}
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type='text/javascript'>
+        var number = 1;
+
+        function addAddresses() {
+            // Container <div> where dynamic content will be placed
+            let container = document.getElementById("address");
+            // Append a node with a random text
+            container.appendChild(document.createTextNode("Adresse N° " + (number++)));
+            // Create an <input> element, set its type and name attributes
+            let element = document.createElement("textArea");
+            element.className = 'form-control address';
+            element.name = "addresses[]";
+            console.log(element);
+            container.appendChild(element);
+            // Append a line break
+            container.appendChild(document.createElement("br"));
+
+        }
+
+        $("#validateEmail").click(function ($event) {
+            $event.preventDefault();
+            // $.ajax({url: "http://localhost/LEBONCOIN/webService/v1/emailValidator.php", success: function(result){
+            //         $("#emailValidationResult").html(result);
+            //     }});
+            let email = $('#email').val();
+            $.get("http://localhost/LEBONCOIN/src/webService/v1/action/emailValidator.php?email=" + email, function (data) {
+                data = JSON.parse(data);
+                let classCss = 'alert-danger';
+                if (data.status == 200) {
+                    classCss = 'alert-success';
+                }
+                $("#emailValidationResult").html(data.body);
+                $("#emailValidationResult").removeClass('alert-danger alert-success').addClass(classCss);
+            });
+        });
+
+        $('#email').keyup(function () {
+            this.value = this.value.toLowerCase();
+        });
+
+        $(document).on('keyup', 'textarea[name^="addresses"]', function () {
+            this.value = this.value.toUpperCase();
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base/base.html.twig' %}
+{% block stylesheet %}
+    {{ parent() }}
+    <link href="http://{{ host }}/LEBONCOIN/resources/assets/css/style.css" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <main role="main" class="container">
+        <h1 class="mt-5">Edit Address</h1>
+        <form action="{{ formAction }}" method="post">
+            <input type="hidden" value="{{ id }}" name="id">
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea type="text" class="form-control address" id="address" name="address"
+                          required>{{ address.address }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Edit</button>
+        </form>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('#address').keyup(function () {
+            this.value = this.value.toUpperCase();
+        });
+    </script>
+{% endblock %}

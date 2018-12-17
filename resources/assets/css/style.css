@@ -1,0 +1,11 @@
+#email {
+    text-transform: lowercase;
+}
+
+.address {
+    text-transform: uppercase;
+}
+
+#firstName, #lastName {
+    text-transform: capitalize;
+}

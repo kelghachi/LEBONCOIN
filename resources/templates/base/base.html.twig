@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>LeBonCoin</title>
+    <link rel="icon" type="image/x-icon" href="http://{{ host }}/LEBONCOIN/src/assets/leboncoin-logo.png"/>
+    {% block stylesheet %}
+        <link href="http://{{ host }}/LEBONCOIN/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    {% endblock %}
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">LBC</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="http://{{ host }}/LEBONCOIN/public/contact/list.php">Home <span
+                                class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Contacts
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="http://{{ host }}/LEBONCOIN/public/contact/create.php">Create</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="form-inline mt-2 mt-md-0">
+                Welcome {{ user.login }}
+            </div>
+        </div>
+    </nav>
+</header>
+
+{% block body %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="http://{{ host }}/LEBONCOIN/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="http://{{ host }}/LEBONCOIN/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+{% endblock %}
+</body>
+</html>
