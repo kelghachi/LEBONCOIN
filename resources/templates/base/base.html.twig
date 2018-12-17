@@ -6,15 +6,18 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>LeBonCoin</title>
-    <link rel="icon" type="image/x-icon" href="http://{{ host }}/LEBONCOIN/src/assets/leboncoin-logo.png"/>
+    <link rel="icon" type="image/x-icon" href="http://{{ host }}/LEBONCOIN/resources/assets/leboncoin-logo.png"/>
     {% block stylesheet %}
         <link href="http://{{ host }}/LEBONCOIN/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     {% endblock %}
+    <style>
+        .logo{width: 30px}
+    </style>
 </head>
 <body>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">LBC</a>
+        <a class="navbar-brand" href="http://{{ host }}/LEBONCOIN/public/contact/list.php"><img class="logo" src="http://{{ host }}/LEBONCOIN/resources/assets/leboncoin-logo.png">LBC</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
