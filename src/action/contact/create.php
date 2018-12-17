@@ -1,5 +1,6 @@
 <?php
-//import files
+
+session_start();
 require_once __DIR__ . "/../../entity/Contact.php";
 require_once __DIR__ . "/../../service/ContactService.php";
 require_once __DIR__ . "/../../service/AddressService.php";
@@ -20,8 +21,7 @@ if (isset($_POST['id']) && isset($_POST['firstName']) && isset($_POST['lastName'
     }
     $columns = ['firstName', 'lastName', 'email', 'user_id'];
     $values = [':firstName', ':lastName', ':email', ':user'];
-    $args = ['firstName' => $firstName, 'lastName' => $lastName, 'email' => $email, 'user' => $userId];
-
+    $args = ['firstName' => $firstName, 'lastName' => $lastName, 'email' => $email, 'user' => $_SESSION['userid']];
     $contactId = $contactService->create($columns, $values, $args);
     if (isset($_POST['addresses']) && !empty($contactId)) {
         $columns = ['address', 'contact_id'];
